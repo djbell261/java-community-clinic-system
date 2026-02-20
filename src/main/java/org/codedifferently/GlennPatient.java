@@ -23,6 +23,7 @@ public class GlennPatient {
         return id;
     }
 
+
     public String getName() {
         return name;
     }
@@ -31,13 +32,31 @@ public class GlennPatient {
         return checkedIn;
     }
 
+    public String getPriority() {
+        return priority;
+    }
+
+    public int setId(int id) {
+        if (id > 0) {
+            this.id = id;
+        } else {
+            System.out.println("Invalid ID.");
+        }
+        return id;
+    }
+
+    public void setName(String name) {
+        if (name != null && !name.trim().isEmpty()) {
+            this.name = name;
+        } else {
+            System.out.println("Invalid Name.");
+        }
+    }
+
     public void checkIn() {
         this.checkedIn = true;
     }
 
-    public String getPriority() {
-        return priority;
-    }
 
     public String toString() {
         return "ID: " + id + " | Name: " + name + "Age: " + age + " | Priority: " + priority + "| Checked In: " + checkedIn;
