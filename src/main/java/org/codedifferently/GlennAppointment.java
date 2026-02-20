@@ -6,7 +6,7 @@ public class GlennAppointment {
     private boolean completed;
     private boolean cancelled;
 
-    public void glennAppointment(String timeSlot, GlennPatient patient) {
+    public GlennAppointment(String timeSlot, GlennPatient patient) {
         this.timeSlot = timeSlot;
         this.patient = patient;
         this.completed = false;
@@ -88,7 +88,7 @@ public class GlennAppointment {
     }
 
     public String toString() {
-        return timeSlot + "|" + patient.getName() + " | Priority: " + patient.getPriority() + " | Completed:  " + completed + " | Canceled: " + cancelled;
+        return timeSlot + "|" + patient.getName()  + " | Completed:  " + completed + " | Canceled: " + cancelled;
     }
 
 

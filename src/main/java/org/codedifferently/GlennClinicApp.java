@@ -1,7 +1,7 @@
 package org.codedifferently;
 
 
-import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class GlennClinicApp{
@@ -40,8 +40,10 @@ toString()/display()
         Scanner scan = new Scanner(System.in);
         GlennClinicSystem system = new GlennClinicSystem();
 
-        System.out.println("Welcome to Derwin Bell's Community Clinic System");
-        System.out.println("""
+
+do {
+    System.out.println("Welcome to Derwin Bell's Community Clinic System");
+    System.out.println("""
                 1. Add New Patient
                 2. View All Patients
                 3. Check In Patient
@@ -51,15 +53,14 @@ toString()/display()
                 7. View Daily Schedule
                 8. Daily Report
                 9. Exit""");
-        int choice = scan.nextInt();
-do {
+    int choice = scan.nextInt();
+
     switch (choice) {
         case 1:
             System.out.println("Enter Patient Name: ");
             String patientName = scan.next();
-            System.out.println("Enter Phone Number: ");
-            String phoneNumber = scan.next();
-            system.addPatient(patientName, phoneNumber);
+
+            system.addPatient(patientName);
             break;
 
         case 2:
@@ -67,7 +68,8 @@ do {
             system.patientList();
             break;
         case 3:
-            system.checkIn();
+            system.checkPatientIn();
+
             break;
         case 4:
             system.searchPatient();
@@ -76,6 +78,7 @@ do {
             system.schedulePatient();
             break;
         case 6:
+
             system.cancelAppointment();
             break;
         case 7:
@@ -165,7 +168,7 @@ Enter your choice: 6
 
 Enter Patient ID to cancel appointment: 102
 
-Appointment for Sarah Johnson at 11:00 AM has been cancelled successfully.
+Appointment for Sarah Johnson at 11:00 AM has been canceled successfully.
 
 Enter your choice: 7
 
