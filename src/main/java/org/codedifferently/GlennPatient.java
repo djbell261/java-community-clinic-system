@@ -11,8 +11,6 @@ public class GlennPatient {
 
     public GlennPatient() {
         this.id = idCounter.getAndIncrement();
-        this.name = name;
-
         this.checkedIn = false;
 
     }
@@ -36,7 +34,7 @@ public class GlennPatient {
 
     */
 
-    public int setId(int id) {
+    /* public int setId(int id) {
         if (id > 0) {
             this.id = id;
         } else {
@@ -45,6 +43,8 @@ public class GlennPatient {
         return id;
     }
 
+     */
+
     public void setName(String name) {
         if (name != null && !name.trim().isEmpty()) {
             this.name = name;
@@ -52,6 +52,7 @@ public class GlennPatient {
             System.out.println("Invalid Name.");
         }
     }
+
 
     public void checkIn() {
         this.checkedIn = true;

@@ -6,72 +6,143 @@ import java.util.Scanner;
 
 public class GlennClinicSystem {
 
-    public ArrayList<String> patients = new ArrayList<>();
-    public ArrayList<Integer> id = new ArrayList<>();
-    public ArrayList<String> checked = new ArrayList<>();
+    private final ArrayList<GlennPatient> patients = new ArrayList<>();
+    private final ArrayList<GlennAppointment> appointments = new ArrayList<>();
+
+    private final String[] timeSlots = {"9:00 AM", "10:00 AM", "11:00 AM", "1:00 PM", "2:00 PM"};
+    private final GlennAppointment[] schedule = new GlennAppointment[timeSlots.length];
+
+    // Use ONE scanner for the system
+    private final Scanner scan = new Scanner(System.in);
+
 
     public void patientList(){
-        GlennPatient gP = new GlennPatient();
-        for(int i =0; i < patients.size(); i++){
-            System.out.println("ID:" + id.get(i) + "| Name: " + patients.get(i) + "| Checked In: " + gP.isCheckedIn());
 
+        if (patients.isEmpty()) {
+            System.out.println("No patients found.");
+            return;
+        }
+
+
+        for (GlennPatient p : patients) {
+            System.out.println("ID: " + p.getId()
+                    + " | Name: " + p.getName()
+                    + " | Checked In: " + p.isCheckedIn());
         }
 
     }
 
     public void addPatient(String name){
-        GlennPatient gP = new GlennPatient();
 
 
-        gP.setName(name);
-        patients.add(gP.getName());
-        gP.setId(gP.getId());
-        id.add(gP.getId());
+        GlennPatient p = new GlennPatient();
+        p.setName(name);
+
+        patients.add(p);
+
         System.out.println("Patient added successfully!");
-        System.out.println("Patient ID: " + gP.getId());
+        System.out.println("Patient ID: " + p.getId());
 
 
     }
 
     public void checkPatientIn(){
 
-        GlennPatient glennPatient = new GlennPatient();
-        Scanner scan = new Scanner(System.in);
         System.out.println("Enter Patient ID to check");
         int patientId = scan.nextInt();
 
-        for (int i=0; i < id.size(); i++) {
-            if(id.get(i) == patientId){
+        scan.nextLine(); // consume leftover newline
 
-                System.out.println("Patient " + patients.get(i) + " checked in successfully.");
+        boolean found = false;
+
+        for (GlennPatient p : patients) {
+            if (p.getId() == patientId) {
+                p.checkIn(); // ✅ THIS is what actually changes checkedIn to true
+                System.out.println("Patient " + p.getName() + " checked in successfully.");
+                found = true;
+                break; // stop looping once we found them
             }
         }
 
-        glennPatient.checkIn();
+        if (!found) {
+            System.out.println("No patient found with ID: " + patientId);
+        }
 
-    }
+
+        }
+
 
 
     public void searchPatient(){
-        GlennPatient glennPatient = new GlennPatient();
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Patient ID: ");
-        int pId = scan.nextInt();
+        if (patients.isEmpty()) {
+            System.out.println("No patients exist yet. Add a patient first.");
 
-        for (int i=0; i < id.size(); i++){
-            if(pId == id.get(i)){
-                System.out.println("Patient ID:" + id.get(i) +  "\n" +
-                        "Name:" + patients.get(i) + "\n" +
-                        "Checked In: " + glennPatient.isCheckedIn() + "\n" +
-                        "Appointment Time: " + "\n");
-            }
 
         }
+        System.out.print("Enter Patient ID to check in: ");
+        int patientId = scan.nextInt();
 
+        for (GlennPatient p : patients){
+
+            if(p.getId() == patientId){
+                p.checkIn();
+                System.out.println("Patient " + p.getName() + " checked in successfully.");
+
+            }
+        }
 
     }
 
     public  void schedulePatient(){
+
+        if (patients.isEmpty()) {
+            System.out.println("No patients exist yet. Add a patient first.");
+            return;
+        }
+
+        System.out.println("Available Time Slots:");
+        for (int i = 0; i < timeSlots.length; i++) {
+            String status = (schedule[i] == null) ? "Available" : "Booked";
+            System.out.println((i + 1) + ". " + timeSlots[i] + " - " + status);
+        }
+
+        System.out.print("Select a time slot (1-" + timeSlots.length + "): ");
+        int slotChoice = scan.nextInt();
+
+        if (slotChoice < 1 || slotChoice > timeSlots.length) {
+            System.out.println("Invalid time slot.");
+            return;
+        }
+
+        int slotIndex = slotChoice - 1;
+
+        if (schedule[slotIndex] != null) {
+            System.out.println("That time slot is already booked. Please choose another.");
+            return;
+        }
+
+        System.out.print("Enter Patient ID: ");
+        int patientId = scan.nextInt();
+
+        GlennPatient p = findPatientById(patientId);
+
+        if (p == null) {
+            System.out.println("Patient not found.");
+            return;
+        }
+
+        if (!p.isCheckedIn()) {
+            System.out.println("Patient is not checked in yet. Please check them in first.");
+            return;
+        }
+
+        GlennAppointment appt = new GlennAppointment(timeSlots[slotIndex], p);
+
+        schedule[slotIndex] = appt;
+        appointments.add(appt);
+
+        System.out.println("Appointment scheduled at "
+                + timeSlots[slotIndex] + " for " + p.getName() + ".");
 
     }
 
@@ -87,6 +158,13 @@ public class GlennClinicSystem {
 
     public void dailyReport(){
 
+    }
+
+    private GlennPatient findPatientById(int id) {
+        for (GlennPatient p : patients) {
+            if (p.getId() == id) return p;
+        }
+        return null;
     }
 
 }
