@@ -13,9 +13,6 @@ public class GlennAppointment {
         this.cancelled = false;
     }
 
-    public String getTimeSlot() {
-        return timeSlot;
-    }
 
     public GlennPatient getPatient() {
         return patient;
@@ -27,51 +24,6 @@ public class GlennAppointment {
 
     public boolean isCancelled() {
         return cancelled;
-    }
-
-    public void setPatient(GlennPatient patient) {
-        if (patient != null) {
-            this.patient = patient;
-        } else {
-            System.out.println("Invalid patient");
-        }
-    }
-
-    public void setTimeSlot(String timeSlot) {
-        if (timeSlot != null && !timeSlot.trim().isEmpty()) {
-            this.timeSlot = timeSlot;
-        } else {
-            System.out.println("Invalid Time");
-        }
-    }
-
-    public void setCompleted(boolean completed) {
-        if (!cancelled) {
-            this.completed = completed;
-        } else {
-            System.out.println("Appointment was cancelled");
-        }
-    }
-
-    public void setCancelled(boolean cancelled) {
-        if (!completed) {
-            this.cancelled = cancelled;
-        } else {
-            System.out.println("Appointment was completed");
-        }
-    }
-
-    public void complete() {
-        if (cancelled) {
-            System.out.println("Appointment was cancelled");
-            return;
-        }
-        if (completed) {
-            System.out.println("Appointment was already completed");
-            return;
-        }
-        completed = true;
-        System.out.println("Appointment was check as completed");
     }
 
     public void cancel() {

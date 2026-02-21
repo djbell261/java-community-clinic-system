@@ -34,16 +34,7 @@ public class GlennPatient {
 
     */
 
-    /* public int setId(int id) {
-        if (id > 0) {
-            this.id = id;
-        } else {
-            System.out.println("Invalid ID.");
-        }
-        return id;
-    }
 
-     */
 
     public void setName(String name) {
         if (name != null && !name.trim().isEmpty()) {

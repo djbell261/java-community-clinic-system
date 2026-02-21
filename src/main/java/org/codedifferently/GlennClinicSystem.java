@@ -149,14 +149,65 @@ public class GlennClinicSystem {
 
     public void cancelAppointment(){
 
+        System.out.print("Enter Patient ID to cancel appointment: ");
+        int patientId = scan.nextInt();
+
+        int slotIndex = findSlotIndex(patientId);
+        if (slotIndex == -1) {
+            System.out.println("No scheduled appointment found for this patient.");
+            return;
+        }
+
+        GlennAppointment appt = schedule[slotIndex];
+        appt.cancel();              // marks canceled in the appointment object
+        schedule[slotIndex] = null; // frees the slot so it shows "Available"
+
+        System.out.println("Appointment cancelled successfully.");
+
     }
 
 
     public void dailySchedule(){
 
+        System.out.println("Daily Schedule:");
+        for (int i = 0; i < timeSlots.length; i++) {
+            if (schedule[i] == null) {
+                System.out.println(timeSlots[i] + " - Available");
+            } else {
+                GlennAppointment appt = schedule[i];
+                System.out.println(timeSlots[i] + " - " + appt.getPatient().getName());
+            }
+        }
+
+
     }
 
     public void dailyReport(){
+
+        int checkedInCount = 0;
+        for (GlennPatient p : patients) {
+            if (p.isCheckedIn()) checkedInCount++;
+        }
+
+        int scheduledCount = 0;
+        for (GlennAppointment a : schedule) {
+            if (a != null) scheduledCount++;
+        }
+
+        int completedCount = 0;
+        int cancelledCount = 0;
+        for (GlennAppointment a : appointments) {
+            if (a.isCompleted()) completedCount++;
+            if (a.isCancelled()) cancelledCount++;
+        }
+
+        System.out.println("Daily Summary Report");
+        System.out.println("-------------------------");
+        System.out.println("Total Patients: " + patients.size());
+        System.out.println("Total Patients Checked In: " + checkedInCount);
+        System.out.println("Appointments Scheduled (active): " + scheduledCount);
+        System.out.println("Appointments Completed: " + completedCount);
+        System.out.println("Appointments Cancelled: " + cancelledCount);
 
     }
 
@@ -166,5 +217,16 @@ public class GlennClinicSystem {
         }
         return null;
     }
+
+    private int findSlotIndex(int patientId) {
+        for (int i = 0; i < schedule.length; i++) {
+            if (schedule[i] != null && schedule[i].getPatient().getId() == patientId) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
 
 }
