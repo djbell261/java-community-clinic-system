@@ -42,29 +42,30 @@ toString()/display()
 
 
 do {
-    System.out.println("Welcome to Derwin Bell's Community Clinic System");
+    System.out.println("Welcome to Derwin & Glenn's Geek Squad");
     System.out.println("""
-                1. Add New Patient
-                2. View All Patients
-                3. Check In Patient
-                4. Search for Patient
+                1. Add New Customer
+                2. View All Customers
+                3. Check In Customers
+                4. Search for Customers
                 5. Schedule Appointment
                 6. Cancel Appointment
-                7. View Daily Schedule
-                8. Daily Report
-                9. Exit""");
+                7. Complete Appointment
+                8. View Daily Schedule
+                9. Daily Report
+                10. Exit""");
     int choice = scan.nextInt();
 
     switch (choice) {
         case 1:
-            System.out.println("Enter Patient Name: ");
+            System.out.println("Enter Customer's Name: ");
             String patientName = scan.next();
 
             system.addPatient(patientName);
             break;
 
         case 2:
-            System.out.println("PATIENT LIST");
+            System.out.println("Customer LIST");
             system.patientList();
             break;
         case 3:
@@ -78,16 +79,18 @@ do {
             system.schedulePatient();
             break;
         case 6:
-
             system.cancelAppointment();
             break;
         case 7:
+            system.completeAppointment();
+        case 8:
             system.dailySchedule();
             break;
-        case 8:
+        case 9:
             system.dailyReport();
             break;
-        case 9:
+        case 10:
+            System.out.println("Goodbye, Thanks For Coming!");
             System.exit(0);
             break;
         default:
@@ -114,9 +117,10 @@ Welcome to Derwin Bell's Community Clinic System
 4. Search for Patient
 5. Schedule Appointment
 6. Cancel Appointment
-7. View Daily Schedule
-8. Daily Report
-9. Exit
+7. Complete Appointment
+8. View Daily Schedule
+9. Daily Report
+10. Exit
 
 Enter your choice: 1
 

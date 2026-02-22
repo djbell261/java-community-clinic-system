@@ -14,6 +14,7 @@ public class GlennAppointment {
     }
 
 
+
     public GlennPatient getPatient() {
         return patient;
     }
@@ -24,6 +25,31 @@ public class GlennAppointment {
 
     public boolean isCancelled() {
         return cancelled;
+    }
+
+
+    public void setTimeSlot(String timeSlot) {
+        if (timeSlot != null && !timeSlot.trim().isEmpty()) {
+            this.timeSlot = timeSlot;
+        } else {
+            System.out.println("Invalid Time");
+        }
+    }
+
+
+
+
+    public void complete() {
+        if (cancelled) {
+            System.out.println("Appointment was cancelled");
+            return;
+        }
+        if (completed) {
+            System.out.println("Appointment was already completed");
+            return;
+        }
+        completed = true;
+        System.out.println("Appointment was check as completed");
     }
 
     public void cancel() {

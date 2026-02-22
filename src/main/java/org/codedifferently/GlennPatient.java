@@ -7,7 +7,7 @@ public class GlennPatient {
     private int id;
     private String name;
     private boolean checkedIn;
-    //private String priority; // Emergency , Reg, Follow
+    private String priority; // Emergency , Reg, Follow
 
     public GlennPatient() {
         this.id = idCounter.getAndIncrement();
@@ -28,13 +28,14 @@ public class GlennPatient {
         return checkedIn;
     }
 
-   /* public String getPriority() {
-        return priority;
+
+    public void setPriority(String priority){
+        this.priority = priority.toUpperCase();
     }
 
-    */
-
-
+    public String getPriority(){
+        return priority;
+    }
 
     public void setName(String name) {
         if (name != null && !name.trim().isEmpty()) {
