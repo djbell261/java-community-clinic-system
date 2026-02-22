@@ -6,16 +6,28 @@ import java.util.Scanner;
 
 public class GlennClinicSystem {
 
+    // Properties
+    // (private and final because the values can't be changed nor accessed outside this class)
+    // Array List for the Glenn Patient class, this holds newly created patient objects
+    // that allows us to track the patients individual properties
+    // same for the Glenn Appointment Array List
     private final ArrayList<GlennPatient> patients = new ArrayList<>();
     private final ArrayList<GlennAppointment> appointments = new ArrayList<>();
 
+    // Array made for time slots, this just holds the available times the user can book
     private final String[] timeSlots = {"9:00 AM", "10:00 AM", "11:00 AM", "1:00 PM", "2:00 PM"};
+    // Array made with the Appointment Class, holds the properties of the class
+    // has the same amount of cells as the timeslot array
     private final GlennAppointment[] schedule = new GlennAppointment[timeSlots.length];
 
     // Use ONE scanner for the system
     private final Scanner scan = new Scanner(System.in);
 
+    //Behaviors
 
+    //uses a for loop to search through the array
+    // print out ever patient object's name, id, and check in status
+    // if customers array is Empty say no customers found
     public void patientList(){
 
         if (patients.isEmpty()) {
@@ -43,6 +55,7 @@ public class GlennClinicSystem {
 
     }
 
+    //create new customers object, add it to the array, print out unique ID
     public void addPatient(String name){
 
 
@@ -57,6 +70,11 @@ public class GlennClinicSystem {
 
     }
 
+    //ask user for ID
+    //search through the array to see if user given
+    // id matches any id of a patient object in the array
+    // call checkin to make true
+    // set found to true if not found say so
     public void checkPatientIn(){
 
         System.out.println("Enter Customer ID to check");
@@ -83,7 +101,7 @@ public class GlennClinicSystem {
         }
 
 
-
+    //Find customer with the given ID using for loop
     public void searchPatient(){
         if (patients.isEmpty()) {
             System.out.println("No Customer exist yet. Add a patient first.");
@@ -98,11 +116,23 @@ public class GlennClinicSystem {
             if(p.getId() == patientId){
 
                 System.out.println("Customer " + p.getName() + " is in the Database");
+                System.out.println("ID: " + p.getId());
+                System.out.println("Check In Status: " + p.isCheckedIn());
+                System.out.println("Priority: " + p.getPriority());
 
             }
         }
 
     }
+
+    //checks if customer array list is empty
+    // ask for customer ID from user
+    // if patient returns null it doesnt exist
+    // if Patient isnt checked in tell user to check in first
+    //ask for priority, set priority in the Patient object
+    // if emergency find the earliest available slot
+    // if regular you can choose any available slot
+    // follow ups can only be between 1pm or 2pm
 
     public void schedulePatient(){
 
@@ -195,6 +225,7 @@ public class GlennClinicSystem {
     }
 
 
+// deletes appointment object from the schedule array freeing up the spot in the cell
     public void cancelAppointment(){
 
         System.out.print("Enter Customer ID to cancel appointment: ");
@@ -214,6 +245,8 @@ public class GlennClinicSystem {
 
     }
 
+
+    // deletes appointment object from the schedule array freeing up the spot in the cell
     public void completeAppointment(){
 
         System.out.print("Enter Customer ID to complete appointment: ");
@@ -234,6 +267,8 @@ public class GlennClinicSystem {
     }
 
 
+// goes through the timeslots checking if its avalible
+// if not show the name of the customers the took up said spot
     public void dailySchedule(){
 
         System.out.println("Daily Schedule:");
@@ -248,7 +283,10 @@ public class GlennClinicSystem {
 
 
     }
-
+//tells you the amount of customers checked in
+//as well as patients currently scheduled
+//completed and cancelled appointments
+// total number of customers
     public void dailyReport(){
 
         int checkedInCount = 0;
@@ -278,6 +316,7 @@ public class GlennClinicSystem {
 
     }
 
+    // Methods for reused code throughout the program
     private GlennPatient findPatientById(int id) {
         for (GlennPatient p : patients) {
             if (p.getId() == id) return p;
@@ -305,6 +344,7 @@ public class GlennClinicSystem {
 
         return -1;
     }
+
     private boolean isFollowUpSlot(int slotIndex){
 
         if(slotIndex == 3 || slotIndex == 4){
