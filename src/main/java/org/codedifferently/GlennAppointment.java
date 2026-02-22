@@ -6,6 +6,7 @@ public class GlennAppointment {
     private boolean completed;
     private boolean cancelled;
 
+    //Constructor
     public GlennAppointment(String timeSlot, GlennPatient patient) {
         this.timeSlot = timeSlot;
         this.patient = patient;
@@ -14,7 +15,7 @@ public class GlennAppointment {
     }
 
 
-
+//Getters
     public GlennPatient getPatient() {
         return patient;
     }
@@ -27,7 +28,7 @@ public class GlennAppointment {
         return cancelled;
     }
 
-
+//Setter
     public void setTimeSlot(String timeSlot) {
         if (timeSlot != null && !timeSlot.trim().isEmpty()) {
             this.timeSlot = timeSlot;
@@ -38,7 +39,7 @@ public class GlennAppointment {
 
 
 
-
+//Method
     public void complete() {
         if (cancelled) {
             System.out.println("Appointment was cancelled");
