@@ -1,7 +1,4 @@
 package org.codedifferently;
-
-
-
 import java.util.Scanner;
 
 public class GlennClinicApp{

@@ -7,7 +7,9 @@ import java.util.Scanner;
 public class GlennClinicSystem {
 
     // Properties
+
     // (private and final because the values can't be changed nor accessed outside this class)
+
     // Array List for the Glenn Patient class, this holds newly created patient objects
     // that allows us to track the patients individual properties
     // same for the Glenn Appointment Array List
@@ -25,7 +27,7 @@ public class GlennClinicSystem {
 
     //Behaviors
 
-    //uses a for loop to search through the array
+    //uses a for each loop to search through the array
     // print out ever patient object's name, id, and check in status
     // if customers array is Empty say no customers found
     public void patientList(){
@@ -285,7 +287,7 @@ public class GlennClinicSystem {
     }
 //tells you the amount of customers checked in
 //as well as patients currently scheduled
-//completed and cancelled appointments
+//completed and canceled appointments
 // total number of customers
     public void dailyReport(){
 

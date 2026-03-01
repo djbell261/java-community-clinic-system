@@ -2,8 +2,9 @@ package org.codedifferently;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-//Constructor
+
 public class GlennPatient {
+    //Properties
     // Makes it so our id counter is going up by 1 everytime someone is added
     private static AtomicInteger idCounter = new AtomicInteger(1000);
     private int id;
@@ -11,6 +12,7 @@ public class GlennPatient {
     private boolean checkedIn;
     private String priority; // Emergency , Reg, Follow
 
+//Constructor
     public GlennPatient() {
         this.id = idCounter.getAndIncrement();
         this.checkedIn = false;
